@@ -6,7 +6,7 @@ class PersonModel {
   String imgeurl;
   int status;
   String address;
-  int mobile;
+  String mobile;
   String role;
 
   PersonModel(

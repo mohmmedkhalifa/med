@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:mymed/screens/1splash.dart';
@@ -24,7 +25,9 @@ void main() async {
   } else {
     _screen = Splash();
   }
-
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+  ));
   runApp(LocalizedApp(child: MyApp(_screen)));
 }
 

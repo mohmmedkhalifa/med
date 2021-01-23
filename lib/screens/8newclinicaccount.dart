@@ -7,6 +7,9 @@ import 'package:mymed/screens/5login_register.dart';
 import 'package:mymed/wedgits/loginwedgit.dart';
 import 'package:string_validator/string_validator.dart';
 
+import '../firebse_helper/repositories.dart';
+import '../models/doctor_model.dart';
+
 class NewDoctor extends StatefulWidget {
   @override
   _NewDoctorState createState() => _NewDoctorState();
@@ -17,42 +20,59 @@ class _NewDoctorState extends State<NewDoctor> {
   String doctorname;
   String email;
   String password;
-  String location;
+  String address;
   String spacialist;
+  String mobile;
 
   var registerkey = GlobalKey<FormState>();
   DoctorModel doctorModel = DoctorModel();
 
-  saveform() {
-    if (isAccepted) {
-      bool validateresult = registerkey.currentState.validate();
-      if (validateresult) {
+  saveform() async {
+    bool validateresult = registerkey.currentState.validate();
 
-        return true;
-      } else
-        return;
-    }
+    if (validateresult) {
+      registerkey.currentState.save();
+      await registerUsingEmailAndPassword(
+          doctorModel.email, doctorModel.password);
+      await insertNewDoctor(doctorModel);
+    } else
+      return;
   }
 
   saveclinicname(String value) {
-    doctorModel.clinicName = value;
+    clinicname = value;
+    doctorModel.clinicName = clinicname;
   }
 
   savedoctorname(String value) {
-   doctorModel.name = value;
+    doctorname = value;
+    doctorModel.name = doctorname;
   }
 
   saveemail(String value) {
-    doctorModel.email = value;
+    email = value;
+    doctorModel.email = email;
   }
 
   savepassword(String value) {
-    doctorModel.password= value;
+    password = value;
+    doctorModel.password = password;
   }
 
   savespacialist(String value) {
-    doctorModel.spicalist = value;
+    spacialist = value;
+    doctorModel.spicalist = spacialist;
   }
+
+  saveaddress(String value) {
+    address = value;
+    doctorModel.clinicAddress = address;
+  }
+  savemobile(String value) {
+    mobile = value;
+    doctorModel.mobile = mobile;
+  }
+
 
   String validateclinicname(String value) {
     if (value.isEmpty) {
@@ -93,8 +113,22 @@ class _NewDoctorState extends State<NewDoctor> {
       return null;
   }
 
+  String validateaddress(String value) {
+    if (value.isEmpty) {
+      return '*required';
+    } else
+      return null;
+  }
+
+  String validatemobile(String value) {
+    if (value.toString().isEmpty) {
+      return '*required';
+    } else
+      return null;
+  }
+
   int groupValue;
-  bool isAccepted = false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +140,7 @@ class _NewDoctorState extends State<NewDoctor> {
             Padding(
               padding: EdgeInsets.only(top: 50),
               child: Text(
-                translator.translate("New Clinic"),
+                translator.translate("New Doctor"),
                 style: TextStyle(
                     color: Theme.of(context).primaryColor,
                     fontSize: 60,
@@ -122,78 +156,68 @@ class _NewDoctorState extends State<NewDoctor> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Loginwedgit(
-                      label: translator.translate("Email"),
-                      icon: Icon(Icons.email),
-                      save: saveemail,
-                      validate: validateemail,
+                      label: translator.translate("doctorname"),
+                      icon: Icon(Icons.person),
+                      save: savedoctorname,
+                      validate: validatedoctorname,
+                      keyboardType: TextInputType.name,
+                      secure: false,
                     ),
-                    SizedBox(
-                      height: 30,
-                    ),
+
                     Loginwedgit(
                       label: translator.translate("Clinic Name"),
                       icon: Icon(Icons.drive_file_rename_outline),
                       save: saveclinicname,
                       validate: validateclinicname,
+                      keyboardType: TextInputType.name,
+                      secure: false,
                     ),
-                    SizedBox(
-                      height: 30,
-                    ),
+
                     Loginwedgit(
-                      label: translator.translate("doctorname"),
-                      icon: Icon(Icons.person),
-                      save: savedoctorname,
-                      validate: validatedoctorname,
+                      label: translator.translate("Email"),
+                      icon: Icon(Icons.email),
+                      save: saveemail,
+                      validate: validateemail,
+                      keyboardType: TextInputType.emailAddress,
+                      secure: false,
                     ),
-                    SizedBox(
-                      height: 30,
-                    ),
+
+
                     Loginwedgit(
                       label: translator.translate("Password"),
                       icon: Icon(Icons.lock),
                       save: savepassword,
                       validate: validatepassword,
+                      keyboardType: TextInputType.visiblePassword,
+                      secure: true,
                     ),
-                    SizedBox(
-                      height: 30,
-                    ),
+
                     Loginwedgit(
                       label: translator.translate("spicaliset"),
                       icon: Icon(Icons.receipt_long),
                       save: savespacialist,
                       validate: validatespacialist,
+                      keyboardType: TextInputType.text,
+                      secure: false,
                     ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Container(
-                      //  margin: EdgeInsets.all(20),
 
-                      //margin: EdgeInsets.symmetric(vertical: 10),
-                      height: 40,
-                      width: double.infinity,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Container(
-                              // padding: EdgeInsets.all(20),
-                              height: 30,
-                              width: 30,
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: DecorationImage(
-                                      image: AssetImage(
-                                          'assets/images/location.jpg'),
-                                      fit: BoxFit.cover))),
-                          Text(
-                            translator.translate("Location"),
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
+                    Loginwedgit(
+                      label: translator.translate("address"),
+                      icon: Icon(Icons.location_on),
+                      save: saveaddress,
+                      validate: validateaddress,
+                      keyboardType: TextInputType.streetAddress,
+                      secure: false,
                     ),
-                    SizedBox(height: 30),
+                    Loginwedgit(
+                      label: translator.translate("mobile"),
+                      icon: Icon(Icons.phone),
+                      save: savemobile,
+                      validate: validatemobile,
+                      keyboardType: TextInputType.phone,
+                      secure: false,
+                    ),
+
                     Container(
                       width: 250,
                       height: 60,
@@ -206,9 +230,10 @@ class _NewDoctorState extends State<NewDoctor> {
                             translator.translate("submit"),
                             style: TextStyle(color: Colors.white, fontSize: 25),
                           ),
-                          onPressed: () async{
+                          onPressed: () async {
                             saveform();
-                          await  registerUsingEmailAndPassword(doctorModel.email,doctorModel.password);
+
+                            print(doctorModel.email);
                           }),
                     ),
                     SizedBox(height: 30),
@@ -239,6 +264,4 @@ class _NewDoctorState extends State<NewDoctor> {
       ),
     );
   }
-
-
 }

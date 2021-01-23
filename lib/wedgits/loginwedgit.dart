@@ -9,18 +9,34 @@ class Loginwedgit extends StatelessWidget {
   Function save;
   String label;
   Widget icon;
+  TextInputType keyboardType;
+  bool secure = false;
+
   Loginwedgit(
-      {@required this.validate, @required this.save, @required this.label ,this.icon});
+      {@required this.validate,
+      @required this.save,
+      @required this.label,
+      this.icon,
+      this.keyboardType,this.secure});
+
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-
-      validator: (newvalue) => validate(newvalue),
-      onSaved: (newValue) => save(newValue),
-      decoration: InputDecoration(
-        prefixIcon:icon,
-          labelText: translator.translate(label),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(30))),
+    return Column(
+      children: [
+        TextFormField(
+          validator: (newvalue) => validate(newvalue),
+          onSaved: (newValue) => save(newValue),
+          keyboardType: keyboardType,
+          obscureText: secure,
+          decoration: InputDecoration(
+              prefixIcon: icon,
+              labelText: translator.translate(label),
+              border: OutlineInputBorder(borderRadius: BorderRadius.circular(30))),
+        ),
+        SizedBox(
+          height: 30,
+        ),
+      ],
     );
   }
 }
