@@ -6,6 +6,9 @@ import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:mymed/screens/1splash.dart';
 import 'package:mymed/utiles/on_boarding.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:mymed/screens/16doctor_home.dart';
+import 'package:mymed/screens/17doctor_profile.dart';
+import 'screens/11makeAppoinment.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,12 +43,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      theme: ThemeData(
-        primaryColor: Color(0xff80cbc4)
-      ),
+      theme: ThemeData(primaryColor: Color(0xff80cbc4)),
       debugShowCheckedModeBanner: false,
-      title: 'MyMed',
-      home: this._screen,
+      title: 'Med+',
+      home: DoctorProfile(), //this._screen,
       localizationsDelegates: translator.delegates,
 
       locale: translator.locale,

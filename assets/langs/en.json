@@ -43,5 +43,8 @@
   "Physiotherapy": "Physiotherapy",
   "Nutrition": "Nitrition",
   "language": "Language",
-  "choosedate": "Choose Date"
+  "choosedate": "Choose Date",
+  "home":"Home",
+  "doctorhome":"You don't have any dates "
+
 }

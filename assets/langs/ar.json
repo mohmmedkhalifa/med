@@ -22,7 +22,7 @@
   "Noappoinment": "لا يوجد لديك مواعيد حتى الآن",
   "AboutApp": "حول التطبيق",
   "Logout": "تسجيل خروج",
-  "profile": "الصفحة الرئيسية",
+  "profile": "الصفحة الشخصية",
   "Contactus": "تواصل معنا",
   "BookAppointment": "حجز موعد",
   "Edituserprofile": "تعديل الملف الشخصي",
@@ -43,5 +43,8 @@
   "Physiotherapy": "العلاج الطبيعي",
   "Nutrition": "التغذية",
   "language": "اللغة",
-  "choosedate": "اختار التاريخ"
+  "choosedate": "اختار التاريخ",
+  "home":"الصفحة الرئيسية",
+  "doctorhome":"لا يوجد لديكم مواعيد "
+
 }

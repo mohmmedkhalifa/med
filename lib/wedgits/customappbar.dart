@@ -15,6 +15,9 @@ class Customappbar extends StatelessWidget with PreferredSizeWidget {
         translator.translate(title),
         style: TextStyle(color: Colors.white, fontSize: 20),
       ),
+      centerTitle: true,
+      iconTheme: IconThemeData(color: Colors.white),
+      elevation: 8,
     );
   }
 

@@ -33,6 +33,12 @@ dependencies:
   firebase_database: ^6.0.0
   cloud_firestore: ^0.16.0
   firebase_auth: "^0.20.0+1"
+  url_launcher:
+  date_time_picker: ^1.1.1
+  intl: ^0.16.1
+
+  
+  
 
 
 
